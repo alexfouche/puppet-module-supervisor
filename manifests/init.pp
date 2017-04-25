@@ -156,6 +156,13 @@ class supervisor(
 
   include supervisor::update
 
+  # reset file defaults in case they were overriden in calling class
+  File {
+    owner => 'root',
+    group => 'root',
+    mode  => '0644',
+  }
+
   case $ensure {
     present: {
       if $autoupgrade == true {

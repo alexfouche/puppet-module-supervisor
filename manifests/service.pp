@@ -42,6 +42,13 @@ define supervisor::service (
 ) {
   include supervisor
 
+  # reset file defaults in case they were overriden in calling class
+  File {
+    owner => 'root',
+    group => 'root',
+    mode  => '0644',
+  }
+
   case $ensure {
     'absent': {
       $autostart = false
