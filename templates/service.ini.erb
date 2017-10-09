@@ -2,7 +2,7 @@
 [<%= @type -%>:<%= @name -%>]
 command=<%= @command %>
 <% if @numprocs.to_i > 1 -%>
-process_name=%(program_name)s_%(process_num)02d
+process_name=%(program_name)s#%(process_num)02d
 <% end -%>
 numprocs=<%= @numprocs %>
 numprocs_start=<%= @numprocs_start %>

@@ -41,8 +41,7 @@ Puppet::Type.type(:service).provide :supervisor, :parent => :base do
     #output.lines.map { |line| line.match /^((?<group_name>.+?):)?(?<process_name>(?<program_name>.+?)(_(?<program_num>\d{2}))?) +(?<state>\w+)/ }.reject(&:nil?)
 
     result = output.lines.map { |line|
-      line.match /^((.+?):)?((.+?)(_(\d+))?) +(\w+)/
-      { :group_name => $2, :process_name => $3, :program_name => $4, :program_num => $6, :state => $7 }
+      line.match /^((?<group_name>\S+?):)?(?<process_name>(?<program_name>\S+?)(#(?<program_num>\d+))?) +(?<state>\w+)/
     }
     result.reject(&:nil?)
   end
