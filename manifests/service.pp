@@ -101,6 +101,7 @@ define supervisor::service (
 
   file { $conf_file:
     ensure  => $config_ensure,
+    mode    => '0640',
     content => template('supervisor/service.ini.erb'),
   }
 

@@ -160,7 +160,7 @@ class supervisor(
   File {
     owner => 'root',
     group => 'root',
-    mode  => '0640',
+    mode  => '0644',
   }
 
   case $ensure {
