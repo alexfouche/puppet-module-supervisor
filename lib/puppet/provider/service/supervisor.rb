@@ -35,7 +35,12 @@ Puppet::Type.type(:service).provide :supervisor, :parent => :base do
   #   processes[:process_name]
   #
   def processes
-    output = supervisorctl(:status)
+
+    # AF: Supervisorctl 4.2 will return the numer of stopped processes instead of 0 for "command successful"
+    # So use Puppet::Util::Execution.execute() instead (see gnupg.rb for example,search Puppet::ExecutionFailure )
+    # output = supervisorctl(:status)
+    supervisorctl_command = "/usr/bin/supervisorctl status"
+    output = Puppet::Util::Execution.execute(supervisorctl_command, :failonfail => false)
 
     # Capture groups don't work in Ruby 1.8
     #output.lines.map { |line| line.match /^((?<group_name>.+?):)?(?<process_name>(?<program_name>.+?)(_(?<program_num>\d{2}))?) +(?<state>\w+)/ }.reject(&:nil?)
